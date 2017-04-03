@@ -8,7 +8,7 @@
 .send-button {
     width: 250px;
     height: 45px;
-    background-color: #1e90e8;
+    background-color: #2AB27B;
     border-radius: 5px;
     border-color: white;
     color: white;
@@ -28,12 +28,12 @@
     left: 10%;
 }
 
-::-moz-placeholder {
+.sendtext::-moz-placeholder {
     text-align: center;
     line-height: 100px;
 }
 
-::-webkit-input-placeholder {
+.sendtext::-webkit-input-placeholder {
     text-align: center;
     line-height: 100px;
 }
