@@ -1,0 +1,81 @@
+.message-container, .message-container-own {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    left: 50%;
+    margin-left: -54%;
+}
+
+
+.message-sender, .message-sender-own {
+    font-size: 1.1em;
+    font-weight: 500;
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+    background-color: orangered;
+    border-color: black;
+    border-radius: 3px 3px 0px 0px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    margin-top: 5px;
+    position: relative;
+    left: 20%;
+}
+
+.message-text, .message-text-own {
+    font-size: 0.8em;
+    font-weight: 100;
+    width: 300px;
+    height: 60px;
+    line-height: 20px;
+    background-color: #ffa07c;
+    border-color: black;
+    border-radius: 0px 0px 3px 3px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word; 
+    position: relative;
+    left: 20%;
+}
+
+.message-sender-own{
+    background-color: #46991a;
+}
+
+.message-text-own {
+    background-color: #a1d884;
+}
+
+.message-delete {
+    width: 20px;
+    height: 30px;
+    font-size: 1.5em;
+    line-height: 25px;
+    position: absolute;
+    top: 5%;
+    right:12%;
+}
+
+.message-delete:hover {
+    color: #111111;
+    cursor: pointer;
+}
+
+.message-list {
+    position: absolute;
+    width: 100%;
+    height: 650px;
+    padding-top: 10px;
+    // padding-bottom: 3px;
+    overflow: auto;
+    background-color: #fffee1;
+    border-width: 5px;
+    border-radius: 10px 10px 10px 10px;
+    border-style: ridge;
+    border-color: black;
+
+}

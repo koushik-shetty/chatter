@@ -1,0 +1,19 @@
+@import './component/message.scss';
+@import './component/message_list.scss';
+@import './component/user_name_entry.scss';
+@import './component/send_text.scss';
+
+.app-container {
+    width: 450px;
+    height: auto;
+    left:50%;
+    top: 5%;
+    bottom: 20%;
+    position: fixed;
+    margin-left:-225px;
+    text-align: center;
+}
+
+body {
+    background-color: #fcf5e8;
+}
