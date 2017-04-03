@@ -5,7 +5,7 @@
     background-color: rebeccapurple;
     text-align: center;
     top: 50%;
-    margin-top: -5%; 
+    margin-top: -10%; 
 }
 
 .user-name {
@@ -18,4 +18,17 @@
     text-align: center;
     position: relative;
     margin-bottom: 15px; 
+}
+
+.error-text {
+    color: orangered;
+    font-size: 0.8em;
+    font-weight: 100;
+}
+
+.chat-title{
+    color: orangered;
+    font-size: 5em;
+    font-weight: 500;
+    margin-bottom: 80px;
 }
