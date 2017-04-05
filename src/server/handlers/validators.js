@@ -4,7 +4,7 @@ const swears = [
 
 export function swearDetector(message) {
     if (message && message.payload) {
-        return String(message.payload).split(" ").every(word => {
+        return String(message.payload.text).split(" ").every(word => {
             return !swears.includes(word.toUpperCase());
         });
     }

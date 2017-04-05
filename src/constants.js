@@ -1,7 +1,7 @@
 export const Type = {
     Delete: 'DELETE',
     Broadcast: 'BROADCAST',
-    BroadcastFail: 'BROADCAST_FAIL',
+    Rejected: 'REJECTED',
     Register: 'REGISTER',
     UnRegister: 'UNREGISTER',
 };

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import MessageStatus, { states } from '../components/MessageStatus.jsx';
 
 import { Type } from '../../constants';
 
@@ -7,13 +8,14 @@ class SendText extends Component {
         super(props);
         this.state = {
             text: '',
+            status: states.idle,
         };
         this._onChange = this._onChange.bind(this);
         this._onClick = this._onClick.bind(this);
     }
 
     _onChange(e) {
-        this.setState({ text: e.target.value });
+        this.setState({ text: e.target.value, status: states.idle });
     }
 
     _onClick() {
@@ -22,13 +24,20 @@ class SendText extends Component {
                 isDeleted: false,
                 text: this.state.text
             }, Type.Broadcast);
+            this.props.onSend();
+            this.setState({ status: states.sending });
         }
     }
 
     render() {
         return (
             <div className="sendtext-container" >
+                <MessageStatus
+                    messenger={this.props.messenger}
+                    status={this.state.status}
+                />
                 <textarea
+                    autoFocus
                     autoComplete="on"
                     className="sendtext"
                     maxLength={242}

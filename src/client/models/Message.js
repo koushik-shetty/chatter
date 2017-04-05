@@ -1,5 +1,6 @@
 import { Type } from '../../constants';
 
+//formats payload adding username automatically
 export default class MessageFormater {
     constructor(username) {
         this.username = username;
@@ -19,7 +20,7 @@ export default class MessageFormater {
     }
 }
 
-
+//the message datastructure that holds all the messages
 export class Messages {
     constructor(messageFormater, messages = []) {
         this.messages = messages;

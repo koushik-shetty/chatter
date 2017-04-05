@@ -2,6 +2,8 @@ import Message from './Message';
 import engineClient from 'engine.io-client';
 import { Type } from '../../constants';
 
+// Messenger - Datastructure used to manage the socket connection to the server.
+//This abstracts away the underlying protocol. 
 export default class Messenger {
     constructor(message = new Message(''),  onMessageCb = () => { }, config = { port: 8889 }) {
         this.state = {
@@ -11,7 +13,6 @@ export default class Messenger {
         this.onMessageCb = onMessageCb;
         this._onMessage = this._onMessage.bind(this);
         this._setup(config);
-
     };
 
     _onMessage(data) {
@@ -48,6 +49,10 @@ export default class Messenger {
 
     register() {
         this.socket.send(registerPayload(this.message.username));
+    }
+
+    getMessageCb() {
+        return this.onMessageCb;
     }
 
     setMessageCb(messageCb) {

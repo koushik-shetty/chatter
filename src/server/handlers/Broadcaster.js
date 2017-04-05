@@ -8,7 +8,8 @@ export default class Broadcaster {
     }
 
     broadcast(id, message) {
-        if (runAgainstValidators(message, validators)) {
+        const isValid = runAgainstValidators(message, validators);
+        if (isValid) {
             Object.keys(this.server.clients).forEach(client => {
                 this.server.clients[client].send(broadcastFormat(id, message));
             });
@@ -19,7 +20,7 @@ export default class Broadcaster {
 
     static failureMessage(reason) {
         return JSON.stringify({
-            type: Type.BroadcastFail,
+            type: Type.Rejected,
             payload: reason,
         });
     }
