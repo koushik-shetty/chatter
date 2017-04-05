@@ -3,10 +3,11 @@ import React, { Component, PropTypes } from 'react';
 class Message extends Component {
     render() {
         const own = this.props.showDelete ? '-own' : '';
+        const textClass = this.props.isDeleted ? "message-text-deleted": "message-text";
         return (
             <div className={"message-container" + own} >
                 <div className={"message-sender" + own} >{this.props.sender}</div>
-                <div className={"message-text" + own} title={this.props.text} >{this.props.text}</div>
+                <div className={textClass + own} title={this.props.text} >{this.props.text}</div>
                 {(() => {
                     if (this.props.showDelete) {
                         return (

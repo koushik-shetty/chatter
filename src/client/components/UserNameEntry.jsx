@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
+import MessageFormater, { Messages } from '../models/Message';
+import Messenger from '../models/messenger'
+import { Type } from '../../constants';
+
 class UserNameEntry extends Component {
     constructor(props, context) {
         super(props, context);
@@ -9,30 +13,48 @@ class UserNameEntry extends Component {
         }
         this._onChange = this._onChange.bind(this);
         this._onUsernameEntry = this._onUsernameEntry.bind(this);
+        this.onRegister = this.onRegister.bind(this);
     }
 
     _onUsernameEntry(username) {
         let error = true;
         if (username) {
-            this.props.onUsernameEntry(username);
+            this._registerUser(username);
             error = false;
         }
         this.setState({ error });
     }
 
-    _onChange(e) {
-        console.log('key:', e.which, e.key, this.state.username, "/");
-        let username = String(this.state.username);//copy
-        if (e.key === 'Enter') {
-            console.log('name:', username);
-            this._onUsernameEntry(username);
-            return
-        } else if (e.key === 'Backspace') {
-            username = username.substr(0, (username.length || 1) - 1);
-        } else if (e.which > 49 && e.which < 127) {
-            username += e.key;
+    onRegister(data) {
+        if (data.type === Type.Register) {
+            if (data.payload.success) {
+                this.props.onUsernameEntry(this.messenger);
+            } else {
+                this.messenger.close();
+                this.messenger = undefined;
+            }
         }
-        this.setState({ username, error: false });
+    }
+
+    _registerUser(username) {
+        if (this.messenger) {
+            this.messenger.close();
+        }
+        const messageFormater = new MessageFormater(username);
+        this.messenger = new Messenger(messageFormater, this.onRegister);
+        this.messenger.register();
+    }
+
+    _onChange(e) {
+        if (this.input) {
+            const value = this.input.value
+            let error = true;
+            if (value) {
+                this._onUsernameEntry(value);
+                error = false;
+            }
+            this.setState({ error });
+        }
     }
 
     errorText() {
@@ -49,9 +71,9 @@ class UserNameEntry extends Component {
             <div className="user-name-container" >
                 <div className="chat-title" >Welcome to Chatter</div>
                 {this.errorText()}
-                <input autoFocus className="user-name" type="text" placeholder="Enter Username" onKeyDown={(e) => this._onChange(e)} />
+                <input autoFocus ref={(e) => this.input = e} className="user-name" type="text" placeholder="Enter Username" />
                 <div></div>
-                <button className="send-button" onClick={() => this._onUsernameEntry(this.state.username)}>Login</button>
+                <button className="send-button" onClick={() => this._onChange()}>Login</button>
             </div>
         );
     }
@@ -66,3 +88,16 @@ UserNameEntry.defaultProps = {
 UserNameEntry.propTypes = {
     onUsernameEntry: PropTypes.func,
 };
+
+const alphabets = "abcdefghijklmnopqrstuvwxyz";
+const numbers = '0123456789';
+const alphaArr = alphabets.split('');
+const upperAlphaArr = alphabets.toUpperCase().split('');
+const numberArr = numbers.split('');
+const validCharsList = alphaArr.concat(...upperAlphaArr, ...numberArr)
+function validChars(c) {
+    if (validCharsList.find(vc => c === vc)) {
+        return true;
+    }
+    return false;
+}

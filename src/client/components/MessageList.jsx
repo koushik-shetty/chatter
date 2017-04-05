@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 import Message from './Message.jsx';
 
@@ -13,12 +14,13 @@ class MessageList extends Component {
 
     render() {
         return (
-            <div className="message-list" >
+            <div className="message-list" ref={e => this.msgList = e}>
                 {this.props.messages.map(message => {
                     return <Message
                         key={message.id}
                         id={message.id}
-                        text={message.text}
+                        text={message.payload.text}
+                        isDeleted={message.payload.isDeleted}
                         sender={message.sender}
                         showDelete={this._showDelete(message.sender)}
                         onDelete={(id) => this._onDelete(id)}

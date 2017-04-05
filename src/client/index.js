@@ -10,23 +10,52 @@ import MessageList from './components/MessageList.jsx';
 import SendText from './components/SendText.jsx';
 import UserNameEntry from './components/UserNameEntry.jsx';
 import Welcome from './components/Welcome.jsx';
+import { Messages } from './models/Message';
+import { Type } from '../constants';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: '',
+            messages: {},
         };
-    }
-    
-    onDelete(id) {
-        console.log('on delete', id);
+        this.onMessageReceived = this.onMessageReceived.bind(this);
     }
 
-    _onUsernameEntry(username) {
-        console.log('username--', username);
-        this.setState({ username });
+    onMessageReceived(message) {
+        switch (message.type) {
+            case Type.Broadcast:
+                this.setState({
+                    messages: this.state.messages.add(message),
+                });
+                break;
+            case Type.Delete:
+                this.setState({
+                    messages: this.state.messages.delete(message.payload)
+                });
+            default:
+        }
     }
+
+    onDelete(id) {
+        this.messenger.send(id, Type.Delete);
+    }
+
+    _onUsernameEntry(messenger) {
+        this.messenger = messenger;
+        this.messenger.setMessageCb(this.onMessageReceived);
+        const messages = new Messages(messenger.getMessageFormatter());
+        this.setState({
+            messages,
+            username: messenger.getUsername(),
+        });
+    }
+
+    componentWillUnmount() {
+        this.messenger.close();
+    }
+
 
     render() {
         if (this.state.username) {
@@ -34,65 +63,23 @@ class App extends Component {
                 <div className="app-container" >
                     <Welcome username={this.state.username} />
                     <MessageList
-                        messages={msg}
+                        messages={this.state.messages.get()}
                         onDelete={id => this.onDelete(id)}
-                        user={'Koushik'}
+                        user={this.state.username}
                     />
-                    <SendText 
+                    <SendText messenger={this.messenger}
                     />
                 </div>
             );
         } else {
             return (
                 <div className="app-container-user-name" >
-                    <UserNameEntry onUsernameEntry={username => this._onUsernameEntry(username)}/>
+                    <UserNameEntry onUsernameEntry={username => this._onUsernameEntry(username)} />
                 </div>
             )
         }
     }
 }
-const msg = [
-    {
-        id: '1',
-        text: 'message 1alskdjf;lksjd;fljas;l j;alsdf;lasf;ljs;lkasdf ;sd;laskdfl;asjdf;lasd;fas;dlfalsdkjf asdf asdf lqwej sdfo sadfkn laksjb lkjasbf, lklk lbk kjbk j--------------->>',
-        sender: 'Bijal Parekh',
-    },
-    {
-        id: '2',
-        text: 'message 2',
-        sender: 'Bijal',
-    },
-    {
-        id: '3',
-        text: 'message 3',
-        sender: 'Koushik',
-    },
-    {
-        id: '4',
-        text: 'message 4',
-        sender: 'Kusuma',
-    },
-    {
-        id: '5',
-        text: 'message 5',
-        sender: 'Koushik Shetty',
-    },
-    {
-        id: '6',
-        text: 'message 1alskdjf;lksjd;fljas;l j;alsdf;lasf;ljs;lkasdf ;sd;laskdfl;asjdf;lasd;fas;dlfalsdkjf asdf asdf lqwej sdfo sadfkn laksjb lkjasbf, lklk lbk kjbk j--------------->>',
-        sender: 'Bijal',
-    },
-    {
-        id: '7',
-        text: 'message 1alskdjf;lksjd;fljas;l j;alsdf;lasf;ljs;lkasdf ;sd;laskdfl;asjdf;lasd;fas;dlfalsdkjf asdf asdf lqwej sdfo sadfkn laksjb lkjasbf, lklk lbk kjbk j--------------->>',
-        sender: 'Bijal',
-    },
-    {
-        id: '8',
-        text: 'message 1alskdjf;lksjd;fljas;l j;alsdf;lasf;ljs;lkasdf ;sd;laskdfl;asjdf;lasd;fas;dlfalsdkjf asdf asdf lqwej sdfo sadfkn laksjb lkjasbf, lklk lbk kjbk j--------------->>',
-        sender: 'Koushik',
-    },
-]
 
 ReactDOM.render(
     <App />,

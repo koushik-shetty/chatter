@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+
+import { Type } from '../../constants';
 
 class SendText extends Component {
     constructor(props) {
@@ -11,16 +13,16 @@ class SendText extends Component {
     }
 
     _onChange(e) {
-        // { target: { value: text }, keycode }
-        // console.log('onchange-', e.target.value, "--", e.keyCode);
         this.setState({ text: e.target.value });
     }
 
     _onClick() {
         if (this.state.text) {
-            this.props.onSubmit(this.state.text);
+            this.props.messenger.send({
+                isDeleted: false,
+                text: this.state.text
+            }, Type.Broadcast);
         }
-        // console.log('clicked');
     }
 
     render() {
@@ -34,7 +36,6 @@ class SendText extends Component {
                     type="text"
                     value={this.state.text}
                     onChange={this._onChange}
-                    onKeyPress={(e) => {console.log('ev', e.key, e.shiftKey)}}
                 />
                 <div>
                     <button className="send-button" type="submit" onClick={this._onClick} >Send</button>
@@ -45,3 +46,7 @@ class SendText extends Component {
 }
 
 export default SendText;
+
+SendText.propTypes = {
+    messenger: PropTypes.object.isRequired,
+};

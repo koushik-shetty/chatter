@@ -23,7 +23,7 @@
     left: 20%;
 }
 
-.message-text, .message-text-own {
+.message-text, .message-text-own, .message-text-deleted,.message-text-deleted-own {
     font-size: 0.8em;
     font-weight: 100;
     width: 300px;
@@ -46,8 +46,15 @@
     background-color: #46991a;
 }
 
-.message-text-own {
+.message-text-own, .message-text-deleted,.message-text-deleted-own {
     background-color: #a1d884;
+}
+
+.message-text-deleted, .message-text-deleted-own {
+    text-decoration: line-through;
+    text-decoration-line: line-through;
+    text-decoration-style: double;
+    -webkit-text-decoration: line-through double;
 }
 
 .message-delete {
@@ -57,7 +64,7 @@
     line-height: 25px;
     position: absolute;
     top: 5%;
-    right:12%;
+    right:14%;
 }
 
 .message-delete:hover {
@@ -68,7 +75,8 @@
 .message-list {
     position: absolute;
     width: 100%;
-    height: 650px;
+    
+    height: 70%;
     padding-top: 10px;
     // padding-bottom: 3px;
     overflow: auto;
@@ -77,5 +85,6 @@
     border-radius: 10px 10px 10px 10px;
     border-style: ridge;
     border-color: black;
+    display: table-row;
 
 }
