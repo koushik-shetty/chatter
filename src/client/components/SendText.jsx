@@ -24,7 +24,6 @@ class SendText extends Component {
                 isDeleted: false,
                 text: this.state.text
             }, Type.Broadcast);
-            this.props.onSend();
             this.setState({ status: states.sending });
         }
     }

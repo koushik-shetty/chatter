@@ -2,17 +2,18 @@ const swears = [
     'IDIOT', 'STUPID', 'MORON',
 ]
 
-export function swearDetector(message) {
+export function hasNoSwearDetector(message) {
     if (message && message.payload) {
-        return String(message.payload.text).split(" ").every(word => {
-            return !swears.includes(word.toUpperCase());
-        });
+        if (message.payload.text){
+            return swears.every(swear => !message.payload.text.toUpperCase().includes(swear))
+        }
+        return true;
     }
     return false;
 }
 
 export const validators = [
-    swearDetector,
+    hasNoSwearDetector,
 ];
 
 export function runAgainstValidators(message, validators) {
