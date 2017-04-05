@@ -12,6 +12,12 @@ class MessageList extends Component {
         this.props.onDelete(id);
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        const msglist = ReactDOM.findDOMNode(this.msgList)
+        msglist.scrollTop = msglist.clientHeight;
+    }
+    
+
     render() {
         return (
             <div className="message-list" ref={e => this.msgList = e}>
