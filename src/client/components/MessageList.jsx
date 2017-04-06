@@ -16,7 +16,6 @@ class MessageList extends Component {
         const msglist = ReactDOM.findDOMNode(this.msgList)
         msglist.scrollTop = msglist.clientHeight;
     }
-    
 
     render() {
         return (
@@ -27,6 +26,7 @@ class MessageList extends Component {
                         id={message.id}
                         text={message.payload.text}
                         isDeleted={message.payload.isDeleted}
+                        messenger={this.props.messenger}
                         sender={message.sender}
                         showDelete={this._showDelete(message.sender)}
                         onDelete={(id) => this._onDelete(id)}

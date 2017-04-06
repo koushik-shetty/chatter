@@ -1,6 +1,7 @@
 export const Type = {
     Delete: 'DELETE',
     Broadcast: 'BROADCAST',
+    Update: 'UPDATE',
     Rejected: 'REJECTED',
     Register: 'REGISTER',
     UnRegister: 'UNREGISTER',

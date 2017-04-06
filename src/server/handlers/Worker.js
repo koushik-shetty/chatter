@@ -34,6 +34,11 @@ export default function Worker(server) {
                     socket.send(Broadcaster.failureMessage('Contains swear'))
                 }
                 break;
+            case Type.Update:
+                if (!broadcaster.broadcast(message.payload.id, message)) {
+                    socket.send(Broadcaster.failureMessage('Contains swear'))
+                }
+                break;
             case Type.Delete:
                 if (!broadcaster.broadcast(message.payload, message)) {
                     socket.send(Broadcaster.failureMessage('Failed to delete'))

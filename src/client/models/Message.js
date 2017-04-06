@@ -34,6 +34,18 @@ export class Messages {
         return this;
     }
 
+    update(msg) {
+        if (msg) {
+            this.messages = this.messages.map(message => {
+                if (message.id === msg.id) {
+                    return msg;
+                }
+                return message;
+            });
+        }
+        return this;
+    }
+
     delete(id) {
         this.messages = this.messages.map(message => {
             if (message.id === id) {

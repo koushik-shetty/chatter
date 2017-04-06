@@ -23,7 +23,7 @@
     left: 20%;
 }
 
-.message-text, .message-text-own, .message-text-deleted,.message-text-deleted-own {
+.message-text, .message-text-own, .message-text-deleted,.message-text-deleted-own, .editable-message {
     font-size: 0.8em;
     font-weight: 100;
     width: 300px;
@@ -46,7 +46,7 @@
     background-color: #46991a;
 }
 
-.message-text-own, .message-text-deleted,.message-text-deleted-own {
+.message-text-own, .message-text-deleted, .message-text-deleted-own, .editable-message {
     background-color: #a1d884;
 }
 
@@ -87,4 +87,11 @@
     border-color: black;
     display: table-row;
 
+}
+
+.editable-message {
+    background-color: white;
+    left: 4%;
+    text-align: center;
+    border-style: dotted;
 }

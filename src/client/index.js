@@ -30,6 +30,11 @@ class App extends Component {
                     messages: this.state.messages.add(message),
                 });
                 break;
+            case Type.Update:
+                this.setState({
+                    messages: this.state.messages.update(message),
+                });
+                break;
             case Type.Delete:
                 this.setState({
                     messages: this.state.messages.delete(message.payload)
@@ -64,6 +69,7 @@ class App extends Component {
                     <Welcome username={this.state.username} />
                     <MessageList
                         messages={this.state.messages.get()}
+                        messenger={this.messenger}
                         onDelete={id => this.onDelete(id)}
                         user={this.state.username}
                     />
