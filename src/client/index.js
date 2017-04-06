@@ -39,6 +39,10 @@ class App extends Component {
                 this.setState({
                     messages: this.state.messages.delete(message.payload)
                 });
+            case Type.Rejected:
+                this.setState({
+                    messages: this.state.messages,
+                });
             default:
         }
     }

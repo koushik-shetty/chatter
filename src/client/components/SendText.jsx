@@ -15,16 +15,22 @@ class SendText extends Component {
     }
 
     _onChange(e) {
-        this.setState({ text: e.target.value, status: states.idle });
+        // this.setState({ text: e.target.value, status: states.idle });
     }
 
     _onClick() {
-        if (this.state.text) {
+        if (this.input.value) {
             this.props.messenger.send({
                 isDeleted: false,
-                text: this.state.text
+                text: this.input.value || ''
             }, Type.Broadcast);
             this.setState({ status: states.sending });
+        }
+    }
+
+    componentDidUpdate (prevProps, prevState) {
+        if (this.state.status === states.sending) {
+            this.setState({ status: states.idle });
         }
     }
 
@@ -34,7 +40,6 @@ class SendText extends Component {
                 <MessageStatus
                     messenger={this.props.messenger}
                     status={this.state.status}
-                    onSend={() => { this.setState({ status: states.idle })}}
                 />
                 <textarea
                     autoFocus
@@ -43,7 +48,8 @@ class SendText extends Component {
                     maxLength={242}
                     placeholder="Type a message. Please no swearing :)"
                     type="text"
-                    value={this.state.text}
+                    defaultValue={this.state.text}
+                    ref={e => this.input = e}
                     onChange={this._onChange}
                 />
                 <div>
