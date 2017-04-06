@@ -34,6 +34,7 @@ class SendText extends Component {
                 <MessageStatus
                     messenger={this.props.messenger}
                     status={this.state.status}
+                    onSend={() => { this.setState({ status: states.idle })}}
                 />
                 <textarea
                     autoFocus

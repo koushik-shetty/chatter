@@ -24,10 +24,14 @@ class MessageStatus extends Component {
     onMessageWrapper(cb) {
         return (data) => {
             cb(data);
+            if (this.props.messenger.getUsername() !== data.sender) {
+                return
+            }
             let status = states.idle;
             switch (data.type) {
                 case Type.Broadcast:
                     status = states.sent;
+                    this.props.onSend();
                     break;
                 case Type.Delete:
                     status = states.deleted;
@@ -60,3 +64,9 @@ export const states = {
 };
 
 export default MessageStatus;
+
+MessageStatus.defaultProps = {
+    onSend: () => {},
+    status: states.idle,
+
+}
