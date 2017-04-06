@@ -48,3 +48,14 @@ Feel free to use any language features you are confident with.
 - `make env=production` will create a minified build.
 - `make run` will start the app
 - `make run env=production` will start the app in production mode
+
+
+### Solution features
+
+- User name prompt and registration
+- Connected users get the messages
+- delete own messages
+- reject messages with swears
+- status of messages like Sending, sent, rejected, Deleted
+- Edit previously sent messages by double clickng the message and pressing enter to send the message.(rejecting swear is done here also)
+- scss transpiling to css.
